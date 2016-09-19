@@ -61,10 +61,10 @@
         }
         function WriteResponse(mails) {
 
-            var strResult = "<table><th>ID</th><th>Заголовок</th><th>Дата</th><th>Адресат</th><th>Отправитель</th><th>Текст</th>";
-                        
+            var strResult = "<table><th>ID</th><th>Заголовок</th><th>Дата</th><th>Адресат</th><th>Отправитель</th><th>Текст</th><th>Id Клиента</th>";
+                     
             $.each(mails, function (index, mail) { strResult += "<tr><td>" + mail.ID  + "</td><td>" + mail.MessageHeader + "</td><td>" +
-            mail.DataT + "</td><td>" + mail.Destination + "</td><td>" + mail.Sender + "</td><td>" + mail.Content +
+            mail.DataT + "</td><td>" + mail.Destination + "</td><td>" + mail.Sender + "</td><td>" + mail.Content + "</td><td>" + mail.ClientId +
             "</td><td> <a id='editItem' data-item='" + mail.ID + "' onclick='EditItem(this);' >Редактировать</a></td>" +
             "<td><a id='delItem' data-item='" + mail.ID + "' onclick='DeleteItem(this);' >Удалить</a></td></tr>";
             });

@@ -18,11 +18,12 @@ namespace RestWebService.Controllers
         {
             this.mailRepository = new MailRepository();
         }
-        
 
+        
 
         public IEnumerable<Mail> Get()
         {
+            
             return mailRepository.Mails;
         }
         

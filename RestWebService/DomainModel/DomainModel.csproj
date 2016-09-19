@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Client.cs" />
     <Compile Include="EFDbContext.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="MailRepository.cs" />

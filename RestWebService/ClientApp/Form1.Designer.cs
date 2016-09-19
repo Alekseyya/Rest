@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.bntGetAllMails = new System.Windows.Forms.Button();
             this.btnSendMail = new System.Windows.Forms.Button();
@@ -35,7 +36,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.HeaderLabel = new System.Windows.Forms.Label();
             this.DateTime = new System.Windows.Forms.Label();
-            this.DateTextBox = new System.Windows.Forms.TextBox();
             this.DestinationTextBox = new System.Windows.Forms.TextBox();
             this.Adress = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,7 +43,8 @@
             this.contentTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,13 +106,6 @@
             this.DateTime.TabIndex = 5;
             this.DateTime.Text = "Дата";
             // 
-            // DateTextBox
-            // 
-            this.DateTextBox.Location = new System.Drawing.Point(613, 139);
-            this.DateTextBox.Name = "DateTextBox";
-            this.DateTextBox.Size = new System.Drawing.Size(100, 20);
-            this.DateTextBox.TabIndex = 6;
-            // 
             // DestinationTextBox
             // 
             this.DestinationTextBox.Location = new System.Drawing.Point(613, 182);
@@ -163,26 +157,29 @@
             // 
             // maskedTextBox1
             // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(323, 385);
+            this.maskedTextBox1.Location = new System.Drawing.Point(614, 135);
             this.maskedTextBox1.Mask = "00.00.0000";
             this.maskedTextBox1.Name = "maskedTextBox1";
             this.maskedTextBox1.Size = new System.Drawing.Size(100, 20);
             this.maskedTextBox1.TabIndex = 14;
+            this.maskedTextBox1.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.maskedTextBox1_MaskInputRejected);
             // 
-            // toolStrip1
+            // btnUpdate
             // 
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-            this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(969, 25);
-            this.toolStrip1.TabIndex = 15;
-            this.toolStrip1.Text = "toolStrip1";
+            this.btnUpdate.Location = new System.Drawing.Point(12, 363);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(88, 21);
+            this.btnUpdate.TabIndex = 16;
+            this.btnUpdate.Text = "Обновить";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(969, 461);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.contentTextBox);
@@ -190,7 +187,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Adress);
             this.Controls.Add(this.DestinationTextBox);
-            this.Controls.Add(this.DateTextBox);
             this.Controls.Add(this.DateTime);
             this.Controls.Add(this.HeaderLabel);
             this.Controls.Add(this.label1);
@@ -215,7 +211,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label HeaderLabel;
         private System.Windows.Forms.Label DateTime;
-        private System.Windows.Forms.TextBox DateTextBox;
         private System.Windows.Forms.TextBox DestinationTextBox;
         private System.Windows.Forms.Label Adress;
         private System.Windows.Forms.Label label2;
@@ -223,7 +218,8 @@
         private System.Windows.Forms.TextBox contentTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.MaskedTextBox maskedTextBox1;
-        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 

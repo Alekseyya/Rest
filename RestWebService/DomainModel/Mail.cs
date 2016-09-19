@@ -15,7 +15,8 @@ namespace DomainModel
         public string Sender { get; set; }
         public string Content { get; set; }
 
-        public int? ClientID { get; set; }
-        public Client Client{ get; set; }
+        public int? ClientId { get; set; }
+
+        //public Client Client { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace DomainModel
 
         public IEnumerable<Mail> Mails
         {
+            
             get { return _context.Mails; }
         }
 
