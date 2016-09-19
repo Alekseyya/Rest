@@ -1,0 +1,183 @@
+﻿<div id="tableBlock"></div>
+<div id="editBlock">
+    <p><b>Редактирование письма</b></p>
+    <table>
+        <tr><td><input type="hidden" id="editId" /></td><td></td></tr>
+        <tr><td><label>Заголовок: </label></td><td><input type="text" id="editHeader" /></td></tr>
+        <tr><td><label>Текст: </label></td><td><input type="text" id="editText" /></td></tr>
+        <tr><td><label>Дата: </label></td><td><input type="datetime-local" id="editDate" /></td></tr>
+    </table>
+
+    <button id="editMail">Сохранить</button>
+</div>
+<div id="createBlock">
+    <p><b>Добавление письма</b></p>
+    <table>
+        <tr><td><label>Залоговок: </label></td><td><input type="text" id="addHeader" /></td></tr>
+        <tr><td><label>Дата: </label></td><td><input type="datetime-local" id="addDate" /></td></tr>
+        <tr><td><label>Адресат: </label></td><td><input type="text" id="addDestination" /></td></tr>
+        <tr><td><label>Отправитель: </label></td><td><input type="text" id="addSender" /></td></tr>
+        <tr><td><label>Текст : </label></td><td><input type="text" id="addText" /></td></tr>
+    </table>
+    <button id="addMail">Сохранить</button>
+</div>
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            GetAllMails();
+
+            $("#editMail").click(function (event) {
+                event.preventDefault();
+                EditMail();
+            });
+
+            $("#addMail").click(function (event) {
+                event.preventDefault();
+                AddMail();
+            });
+
+        });
+        function GetAllMails() {
+
+            $("#createBlock").css('display', 'block');
+            $("#editBlock").css('display', 'none');
+            $.ajax({
+                url: '/api/values',
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    WriteResponse(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        function WriteResponse(mails) {
+
+            var strResult = "<table><th>ID</th><th>Заголовок</th><th>Дата</th><th>Адресат</th><th>Отправитель</th><th>Текст</th>";
+                        
+            $.each(mails, function (index, mail) { strResult += "<tr><td>" + mail.ID  + "</td><td>" + mail.MessageHeader + "</td><td>" +
+            mail.DataT + "</td><td>" + mail.Destination + "</td><td>" + mail.Sender + "</td><td>" + mail.Content +
+            "</td><td> <a id='editItem' data-item='" + mail.ID + "' onclick='EditItem(this);' >Редактировать</a></td>" +
+            "<td><a id='delItem' data-item='" + mail.ID + "' onclick='DeleteItem(this);' >Удалить</a></td></tr>";
+            });
+           
+            strResult += "</table>";
+            $("#tableBlock").html(strResult);
+
+        }
+
+        function AddMail() {
+            //var x;
+            var mail = {
+                //ID:  x,
+                MessageHeader: $('#addHeader').val(),
+                DataT: $('#addDate').val(),
+                Destination: $('#addDestination').val(),
+                Sender: $('#addSender').val(),
+                Content: $('#addText').val()
+               
+            };
+
+            $.ajax({
+                url: '/api/values/',
+                type: 'POST',
+                data: JSON.stringify(mail),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetAllMails();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+
+        }
+
+        function EditMail() {
+            var id = $('#editId').val()
+            
+            var mail = {
+                ID: $('#editId').val(),
+                MessageHeader: $("#editHeader").val(),
+                DataT: $("#editDate").val(),
+                Content: $("#editText").val()
+            };
+            $.ajax({
+                url: '/api/values/' + id,
+                type: 'PUT',
+                data: JSON.stringify(mail),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetAllMails();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        function ShowMail(mail) {
+            if (mail!= null) {
+                $("#createBlock").css('display', 'none');
+                $("#editBlock").css('display', 'block');
+                $("#editId").val(mail.ID);
+                $("#editHeader").val(mail.MessageHeader);
+                $("#editDate").val(mail.DataT);
+                $("#editText").val(mail.Content);
+            }
+            else {
+                alert("Такого письма не существует");
+            }
+        }
+
+        function EditItem(el) {
+            
+            var id = $(el).attr('data-item');
+            GetMail(id);
+        }
+
+        function GetMail(id) {
+            $.ajax({
+                url: '/api/values/' + id,
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    ShowMail(data);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+
+        function Delete(id) {
+
+            $.ajax({
+                url: '/api/values/' + id,
+                type: 'DELETE',
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    GetAllMails();
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+
+        function DeleteItem(el) {
+           
+            var id = $(el).attr('data-item');
+            Delete(id);
+        }
+    </script>
+    
+
+}
